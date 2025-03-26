@@ -322,3 +322,4 @@ C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\Books.pdb
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\Books.genruntimeconfig.cache
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\ref\Books.dll
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\Books.sourcelink.json
