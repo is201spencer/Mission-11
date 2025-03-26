@@ -1,0 +1,46 @@
+/* CategoryFilter.css */
+
+/* Container for the category filter (positioned on the right side) */
+.category-filter-container {
+    position: fixed; /* Fixed position to always stay on the right */
+    top: 20px; /* Adds some spacing from the top */
+    right: 20px; /* Positioned at the right side of the page */
+    background-color: #f8f9fa; /* Light background for contrast */
+    padding: 15px; /* Space inside the container */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow around the filter */
+    border-radius: 8px; /* Rounded corners */
+    width: 250px; /* Set the width of the filter container */
+    height: 80vh; /* Set the height to 80% of the viewport height */
+    overflow-y: auto; /* Enables scrolling if content exceeds container height */
+    z-index: 1050; /* Ensure it appears above other content */
+}
+
+/* The list of categories */
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds space between checkboxes */
+}
+
+/* Individual category item */
+.category-item {
+    display: flex;
+    align-items: center; /* Align checkbox and label on the same line */
+}
+
+/* Checkbox styling */
+.category-checkbox {
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+/* Label styling */
+.category-label {
+    font-size: 14px; /* Make the label font a little smaller */
+    color: #333; /* Dark color for the label */
+}
+
+/* Main content (the page data) */
+.main-content {
+    padding: 20px; /* Optional: Adds padding to the main content */
+    margin-right: 280px; /* Add margin on the right to make room for the filter box */
+}

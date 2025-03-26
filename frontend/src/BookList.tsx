@@ -61,11 +61,24 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
     };
 
     return (
-        <div className="container mt-4">
+        <div className="container d-flex flex-column align-items-center mt-4">
             <h1 className="text-center mb-4">Book List</h1>
             {error && <p className="text-danger">{error}</p>}
 
-            <div className="d-flex justify-content-between mb-3">
+            {/* Toast Notification */}
+            {showToast && (
+                <div className="toast show position-fixed bottom-0 end-0 m-4" style={{ zIndex: 1050 }}>
+                    <div className="toast-header">
+                        <strong className="me-auto">Added to Cart</strong>
+                        <button type="button" className="btn-close" onClick={() => setShowToast(false)}></button>
+                    </div>
+                    <div className="toast-body">
+                        The book has been added to your cart!
+                    </div>
+                </div>
+            )}
+
+            <div className="d-flex justify-content-center gap-4 mb-3 flex-wrap">
                 <div>
                     <label className="me-2">Sort By:</label>
                     <select className="form-select d-inline-block w-auto" value={sortField} onChange={(e) => setSortField(e.target.value)}>
@@ -89,13 +102,13 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row justify-content-center">
                 {books.length === 0 ? (
                     <p className="text-center">Loading books...</p>
                 ) : (
                     books.map((b) => (
-                        <div key={b.bookId} className="col-md-6 col-lg-4 mb-4">
-                            <div className="card h-100 shadow-sm">
+                        <div key={b.bookId} className="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+                            <div className="card h-100 shadow-sm" style={{ width: "18rem" }}>
                                 <div className="card-body">
                                     <h5 className="card-title">{b.title}</h5>
                                     <ul className="list-unstyled">
@@ -113,9 +126,8 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
             </div>
 
             <div className="d-flex justify-content-center mt-3">
-                <button className="btn btn-primary btn-lg" type="button"
-                onClick={() => navigate('/cart')}>
-                View Cart
+                <button className="btn btn-primary btn-lg" type="button" onClick={() => navigate('/cart')}>
+                    View Cart
                 </button>
             </div>
 
@@ -129,11 +141,10 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                 </button>
             </div>
 
-            <div className={`toast align-items-center text-white bg-success position-fixed bottom-0 end-0 m-3 ${showToast ? "show" : "hide"}`} role="alert">
-                <div className="d-flex">
-                    <div className="toast-body">Book added to cart!</div>
-                    <button type="button" className="btn-close btn-close-white me-2 m-auto" onClick={() => setShowToast(false)}></button>
-                </div>
+            <div className="position-fixed bottom-0 end-0 m-4">
+                <button className="btn btn-primary btn-lg rounded-circle shadow-lg" style={{ width: "60px", height: "60px" }} onClick={() => navigate('/cart')}>
+                    🛒
+                </button>
             </div>
         </div>
     );
