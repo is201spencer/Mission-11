@@ -20,8 +20,16 @@ namespace Books.Controllers
         [FromQuery] string sortBy = "Title",
         [FromQuery] string sortOrder = "asc",
         [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 5)
+        [FromQuery] int pageSize = 5, 
+        [FromQuery] List<string>? bookCategories = null)
         {
+            var query = _bookstoreContext.Books.AsQueryable();
+
+            if (bookCategories != null && bookCategories.Any()) 
+            {
+                query = query.Where(b => bookCategories.Contains(b.Category));
+            }
+
             var allowedSortFields = new[] { "Title", "Author", "Publisher", "ISBN", "Classification", "Category", "numPage", "Price" };
 
             if (!allowedSortFields.Contains(sortBy))
@@ -29,7 +37,7 @@ namespace Books.Controllers
                 return BadRequest($"Invalid sort field: {sortBy}. Allowed fields: {string.Join(", ", allowedSortFields)}");
             }
 
-            var booksQuery = _bookstoreContext.Books
+            var booksQuery = query
                 .Select(b => new
                 {
                     BookId = b.BookId,
@@ -52,5 +60,17 @@ namespace Books.Controllers
 
             return Ok(new { books, totalPages = (int)Math.Ceiling((double)totalBooks / pageSize) });
         }
+
+        [HttpGet("GetBookCategories")]
+        public IActionResult GetBookCategories ()
+        {
+            var bookCategories = _bookstoreContext.Books
+                .Select(b => b.Category)
+                .Distinct()
+                .ToList();
+
+            return Ok(bookCategories);
+        }
     }
+
 }

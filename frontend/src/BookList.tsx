@@ -1,35 +1,41 @@
 import { useEffect, useState } from "react";
 import { book } from "./types/book";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "./context/CartContext";
 
-function BookList() {
+function BookList({ selectedCategories }: { selectedCategories: string[] }) {
     const [books, setBooks] = useState<book[]>([]);
     const [error, setError] = useState<string | null>(null);
-
     const [sortField, setSortField] = useState<string>("Title");
     const [sortOrder, setSortOrder] = useState<string>("asc");
-
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [booksPerPage, setBooksPerPage] = useState<number>(5);
     const [totalPages, setTotalPages] = useState<number>(1);
+    const [showToast, setShowToast] = useState(false);
+    
+    const { addToCart } = useCart();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchBooks();
-    }, [sortField, sortOrder, currentPage, booksPerPage]);
+    }, [sortField, sortOrder, currentPage, booksPerPage, selectedCategories]);
 
     const fetchBooks = async () => {
         try {
+            const catParams = selectedCategories
+                .map((cat) => `bookCategories=${encodeURIComponent(cat)}`)
+                .join("&");
+
             const response = await fetch(
-                `https://localhost:5000/Book?sortBy=${sortField}&sortOrder=${sortOrder}&page=${currentPage}&pageSize=${booksPerPage}`
+                `https://localhost:5000/Book?sortBy=${sortField}&sortOrder=${sortOrder}&page=${currentPage}&pageSize=${booksPerPage}${selectedCategories.length ? `&${catParams}` : ""}`
             );
-    
+
             if (!response.ok) {
                 throw new Error("Failed to fetch books");
             }
-    
+
             const data = await response.json();
-            console.log("Fetched Data:", data); // 🔍 Debug API response
-    
-            // ✅ Ensure correct response structure
+
             if (data.books && Array.isArray(data.books)) {
                 setBooks(data.books);
                 setTotalPages(data.totalPages);
@@ -42,67 +48,94 @@ function BookList() {
         }
     };
 
+    const handleAddToCart = (b: book) => {
+        addToCart({
+            bookId: b.bookId,
+            title: b.title,
+            price: b.price,
+            quantity: 1,
+            subtotal: b.price,
+        });
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
+    };
+
     return (
-        <>
-            <h1>Book List</h1>
+        <div className="container mt-4">
+            <h1 className="text-center mb-4">Book List</h1>
+            {error && <p className="text-danger">{error}</p>}
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
-            <div style={{ marginBottom: "12px" }}>
-                <label>Sort By: </label>
-                <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
-                    <option value="title">Title</option>
-                </select>
-
-                <label style={{ marginLeft: "12px" }}>Order: </label>
-                <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
+            <div className="d-flex justify-content-between mb-3">
+                <div>
+                    <label className="me-2">Sort By:</label>
+                    <select className="form-select d-inline-block w-auto" value={sortField} onChange={(e) => setSortField(e.target.value)}>
+                        <option value="title">Title</option>
+                    </select>
+                </div>
+                <div>
+                    <label className="me-2">Order:</label>
+                    <select className="form-select d-inline-block w-auto" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
+                <div>
+                    <label className="me-2">Books per page:</label>
+                    <select className="form-select d-inline-block w-auto" value={booksPerPage} onChange={(e) => setBooksPerPage(Number(e.target.value))}>
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                    </select>
+                </div>
             </div>
 
-            <div style={{ marginBottom: "12px" }}>
-                <label>Books per page: </label>
-                <select value={booksPerPage} onChange={(e) => setBooksPerPage(Number(e.target.value))}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                </select>
-            </div>
-
-            {books.length === 0 ? (
-                <p>Loading books...</p>
-            ) : (
-                books.map((b) => (
-                    <div key={b.bookId} id="bookCard" className="card">
-                        <h3>{b.title}</h3>
-                        <div className="card-body">
-                            <ul className="list-unstyled">
-                            <li><strong>Author:</strong> {b.author}</li>
-                            <li><strong>Publisher:</strong> {b.publisher}</li>
-                            <li><strong>ISBN:</strong> {b.isbn}</li>
-                            <li><strong>Classification:</strong> {b.classification}</li>
-                            <li><strong>Category:</strong> {b.category}</li>
-                            <li><strong>Number of Pages:</strong> {b.numPage}</li>
-                            <li><strong>Price:</strong> ${b.price.toFixed(2)}</li>
-                        </ul>
+            <div className="row">
+                {books.length === 0 ? (
+                    <p className="text-center">Loading books...</p>
+                ) : (
+                    books.map((b) => (
+                        <div key={b.bookId} className="col-md-6 col-lg-4 mb-4">
+                            <div className="card h-100 shadow-sm">
+                                <div className="card-body">
+                                    <h5 className="card-title">{b.title}</h5>
+                                    <ul className="list-unstyled">
+                                        <li><strong>Author:</strong> {b.author}</li>
+                                        <li><strong>Price:</strong> ${b.price.toFixed(2)}</li>
+                                    </ul>
+                                    <button className="btn btn-success w-100" onClick={() => handleAddToCart(b)}>
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                ))
-            )}
+                    ))
+                )}
+            </div>
 
-            <div style={{ marginTop: "20px" }}>
-                <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
+            <div className="d-flex justify-content-center mt-3">
+                <button className="btn btn-primary btn-lg" type="button"
+                onClick={() => navigate('/cart')}>
+                View Cart
+                </button>
+            </div>
+
+            <div className="d-flex justify-content-center mt-4">
+                <button className="btn btn-secondary me-2" disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
                     Previous
                 </button>
-
-                <span style={{ margin: "0 10px" }}>Page {currentPage} of {totalPages}</span>
-
-                <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>
+                <span className="align-self-center">Page {currentPage} of {totalPages}</span>
+                <button className="btn btn-secondary ms-2" disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>
                     Next
                 </button>
             </div>
-        </>
+
+            <div className={`toast align-items-center text-white bg-success position-fixed bottom-0 end-0 m-3 ${showToast ? "show" : "hide"}`} role="alert">
+                <div className="d-flex">
+                    <div className="toast-body">Book added to cart!</div>
+                    <button type="button" className="btn-close btn-close-white me-2 m-auto" onClick={() => setShowToast(false)}></button>
+                </div>
+            </div>
+        </div>
     );
 }
 

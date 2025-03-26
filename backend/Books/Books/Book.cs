@@ -6,6 +6,8 @@ namespace Books;
 
 public partial class Book
 {
+    internal string bookCategories;
+
     [Required]
     public int BookId { get; set; }
 
