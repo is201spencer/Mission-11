@@ -8,7 +8,7 @@ function BooksPage(){
 
         <>
         <CategoryFilter selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
-        <BookList selectedCategories={selectedCategories} />
+        <BookList selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
         </>
     )
 }

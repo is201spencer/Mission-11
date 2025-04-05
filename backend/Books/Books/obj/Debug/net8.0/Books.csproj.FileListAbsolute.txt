@@ -329,3 +329,9 @@ C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\Books.deps.json
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\Books.runtimeconfig.json
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\Books.staticwebassets.endpoints.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\publish\web.config
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\publish\appsettings.Development.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\publish\appsettings.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\publish\Books.deps.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\publish\Books.runtimeconfig.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\publish\Books.staticwebassets.endpoints.json

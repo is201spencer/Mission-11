@@ -2,7 +2,7 @@
   {
     "ContainingType": "Books.Controllers.BookController",
     "Method": "Get",
-    "RelativePath": "Book",
+    "RelativePath": "api/Book",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -38,7 +38,7 @@
   {
     "ContainingType": "Books.Controllers.BookController",
     "Method": "AddBook",
-    "RelativePath": "Book",
+    "RelativePath": "api/Book",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -54,7 +54,7 @@
   {
     "ContainingType": "Books.Controllers.BookController",
     "Method": "GetBookById",
-    "RelativePath": "Book/{id}",
+    "RelativePath": "api/Book/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -70,7 +70,7 @@
   {
     "ContainingType": "Books.Controllers.BookController",
     "Method": "UpdateBook",
-    "RelativePath": "Book/{id}",
+    "RelativePath": "api/Book/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -91,7 +91,7 @@
   {
     "ContainingType": "Books.Controllers.BookController",
     "Method": "DeleteBook",
-    "RelativePath": "Book/{id}",
+    "RelativePath": "api/Book/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -107,7 +107,7 @@
   {
     "ContainingType": "Books.Controllers.BookController",
     "Method": "GetBookCategories",
-    "RelativePath": "Book/GetBookCategories",
+    "RelativePath": "api/Book/GetBookCategories",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
