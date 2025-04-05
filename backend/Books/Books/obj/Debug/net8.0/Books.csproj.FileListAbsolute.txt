@@ -315,7 +315,6 @@ C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Books.props
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Books.props
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\Books.csproj.Up2Date
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\Books.dll
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\refint\Books.dll
@@ -323,3 +322,10 @@ C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\Books.genruntimeconfig.cache
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\ref\Books.dll
 C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\obj\Debug\net8.0\Books.sourcelink.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\Bookstore.sqlite
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\web.config
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\Books.deps.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\Books.runtimeconfig.json
+C:\Users\spenc\OneDrive\Desktop\Mission-11\backend\Books\Books\bin\Debug\net8.0\publish\Books.staticwebassets.endpoints.json

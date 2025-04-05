@@ -1,0 +1,120 @@
+.cart-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  
+  .cart-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    text-align: left;
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 15px;
+  }
+  
+  .cart-table th {
+    background-color: #f9fafb;
+    color: #374151;
+    font-weight: 600;
+  }
+  
+  .cart-table td {
+    color: #4b5563;
+  }
+  
+  .cart-table td:last-child {
+    text-align: center;
+  }
+  
+  .cart-total {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+    color: #111827;
+    margin-bottom: 2rem;
+  }
+  
+  .cart-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  
+  .remove-btn {
+    background-color: #ef4444;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .remove-btn:hover {
+    background-color: #dc2626;
+  }
+  
+  /* Responsive Cart Table */
+  @media (max-width: 768px) {
+    .cart-table thead {
+      display: none;
+    }
+  
+    .cart-table, .cart-table tbody, .cart-table tr, .cart-table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .cart-table tr {
+      margin-bottom: 1rem;
+      background: #f9fafb;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+  
+    .cart-table td {
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+    }
+  
+    .cart-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 1rem;
+      font-weight: bold;
+      text-align: left;
+    }
+  
+    .cart-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .cart-buttons button {
+      width: 100%;
+      max-width: 300px;
+    }
+  
+    .cart-total {
+      text-align: center;
+    }
+  }
+  

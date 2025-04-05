@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { book } from "./types/book";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartContext";
+import CategoryFilter from "./CategoryFilter";
+import { Link } from "react-router-dom";
 
-function BookList({ selectedCategories }: { selectedCategories: string[] }) {
+const APIUrl = 'https://backend-books-agh6bffjf9e4cng0.eastus-01.azurewebsites.net/api';
+
+function BookList() {
     const [books, setBooks] = useState<book[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [sortField, setSortField] = useState<string>("Title");
@@ -12,7 +16,9 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
     const [booksPerPage, setBooksPerPage] = useState<number>(5);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [showToast, setShowToast] = useState(false);
-    
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
     const { addToCart } = useCart();
     const navigate = useNavigate();
 
@@ -21,13 +27,14 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
     }, [sortField, sortOrder, currentPage, booksPerPage, selectedCategories]);
 
     const fetchBooks = async () => {
+        setIsLoading(true);
         try {
             const catParams = selectedCategories
                 .map((cat) => `bookCategories=${encodeURIComponent(cat)}`)
                 .join("&");
 
             const response = await fetch(
-                `https://localhost:5000/Book?sortBy=${sortField}&sortOrder=${sortOrder}&page=${currentPage}&pageSize=${booksPerPage}${selectedCategories.length ? `&${catParams}` : ""}`
+                `${APIUrl}/book?sortBy=${sortField}&sortOrder=${sortOrder}&page=${currentPage}&pageSize=${booksPerPage}${selectedCategories.length ? `&${catParams}` : ""}`
             );
 
             if (!response.ok) {
@@ -45,6 +52,8 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         } catch (err) {
             console.error("Error fetching books:", err);
             setError(err instanceof Error ? err.message : "An unknown error occurred");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -58,6 +67,31 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         });
         setShowToast(true);
         setTimeout(() => setShowToast(false), 3000);
+    };
+
+    const handleEditBook = (bookId: number) => {
+        console.log("Navigating to edit page with bookId:", bookId);
+        navigate(`/edit-book/${bookId}`);
+    };
+
+    const handleDeleteBook = async (bookId: number) => {
+        if (window.confirm("Are you sure you want to delete this book?")) {
+            try {
+                const response = await fetch(`${APIUrl}/book/${bookId}`, {
+                    method: "DELETE",
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to delete book");
+                }
+
+                alert("Book deleted successfully!");
+                fetchBooks(); // Refresh the book list after deletion
+            } catch (error) {
+                console.error("Error deleting book:", error);
+                alert("Failed to delete book");
+            }
+        }
     };
 
     return (
@@ -78,11 +112,18 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                 </div>
             )}
 
+            <CategoryFilter
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+            />
+
             <div className="d-flex justify-content-center gap-4 mb-3 flex-wrap">
                 <div>
                     <label className="me-2">Sort By:</label>
                     <select className="form-select d-inline-block w-auto" value={sortField} onChange={(e) => setSortField(e.target.value)}>
-                        <option value="title">Title</option>
+                        <option value="Title">Title</option>
+                        <option value="Author">Author</option>
+                        <option value="Price">Price</option>
                     </select>
                 </div>
                 <div>
@@ -102,21 +143,41 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                 </div>
             </div>
 
-            <div className="row justify-content-center">
-                {books.length === 0 ? (
-                    <p className="text-center">Loading books...</p>
+            <div>
+                <button onClick={() => navigate("/add-book")}>Add Book</button>
+            </div>
+
+            <div className="d-flex justify-content-between w-100 mb-4">
+                <Link to="/cart" className="btn btn-success">
+                    View Cart
+                </Link>
+            </div>
+
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+                {isLoading ? (
+                    <p>Loading...</p>
                 ) : (
-                    books.map((b) => (
-                        <div key={b.bookId} className="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
-                            <div className="card h-100 shadow-sm" style={{ width: "18rem" }}>
+                    books.map((book) => (
+                        <div className="col" key={book.bookId}>
+                            <div className="card h-100">
+                                <img src="https://via.placeholder.com/150" className="card-img-top" alt={book.title} />
                                 <div className="card-body">
-                                    <h5 className="card-title">{b.title}</h5>
-                                    <ul className="list-unstyled">
-                                        <li><strong>Author:</strong> {b.author}</li>
-                                        <li><strong>Price:</strong> ${b.price.toFixed(2)}</li>
-                                    </ul>
-                                    <button className="btn btn-success w-100" onClick={() => handleAddToCart(b)}>
+                                    <h5 className="card-title">{book.title}</h5>
+                                    <p className="card-text">
+                                        Author: {book.author}
+                                        <br />
+                                        Price: ${book.price}
+                                    </p>
+                                </div>
+                                <div className="card-footer text-center">
+                                    <button className="btn btn-primary" onClick={() => handleAddToCart(book)}>
                                         Add to Cart
+                                    </button>
+                                    <button className="btn btn-secondary" onClick={() => handleEditBook(book.bookId)}>
+                                        Edit
+                                    </button>
+                                    <button className="btn btn-danger" onClick={() => handleDeleteBook(book.bookId)}>
+                                        Delete
                                     </button>
                                 </div>
                             </div>
@@ -125,25 +186,15 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                 )}
             </div>
 
-            <div className="d-flex justify-content-center mt-3">
-                <button className="btn btn-primary btn-lg" type="button" onClick={() => navigate('/cart')}>
-                    View Cart
-                </button>
-            </div>
-
-            <div className="d-flex justify-content-center mt-4">
-                <button className="btn btn-secondary me-2" disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
+            <div className="pagination mt-4">
+                <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
                     Previous
                 </button>
-                <span className="align-self-center">Page {currentPage} of {totalPages}</span>
-                <button className="btn btn-secondary ms-2" disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
                     Next
-                </button>
-            </div>
-
-            <div className="position-fixed bottom-0 end-0 m-4">
-                <button className="btn btn-primary btn-lg rounded-circle shadow-lg" style={{ width: "60px", height: "60px" }} onClick={() => navigate('/cart')}>
-                    🛒
                 </button>
             </div>
         </div>

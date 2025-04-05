@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Books.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class BookController : Controller
+    public class BookController : ControllerBase
     {
         private readonly BookstoreContext _bookstoreContext;
 
@@ -15,17 +15,17 @@ namespace Books.Controllers
             _bookstoreContext = bookstoreContext;
         }
 
-        [HttpGet(Name = "GetBook")]
+        [HttpGet]
         public IActionResult Get(
-        [FromQuery] string sortBy = "Title",
-        [FromQuery] string sortOrder = "asc",
-        [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 5, 
-        [FromQuery] List<string>? bookCategories = null)
+            [FromQuery] string sortBy = "Title",
+            [FromQuery] string sortOrder = "asc",
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 5,
+            [FromQuery] List<string>? bookCategories = null)
         {
             var query = _bookstoreContext.Books.AsQueryable();
 
-            if (bookCategories != null && bookCategories.Any()) 
+            if (bookCategories != null && bookCategories.Any())
             {
                 query = query.Where(b => bookCategories.Contains(b.Category));
             }
@@ -61,8 +61,59 @@ namespace Books.Controllers
             return Ok(new { books, totalPages = (int)Math.Ceiling((double)totalBooks / pageSize) });
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookById(int id)
+        {
+            var book = await _bookstoreContext.Books.FindAsync(id);
+            if (book == null) return NotFound("Book not found");
+            return Ok(book);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBook([FromBody] Book book)
+        {
+            if (book == null) return BadRequest("Invalid book data");
+
+            _bookstoreContext.Books.Add(book);
+            await _bookstoreContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBookById), new { id = book.BookId }, book);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] Book book)
+        {
+            if (id != book.BookId) return BadRequest("Book ID mismatch");
+
+            var existingBook = await _bookstoreContext.Books.FindAsync(id);
+            if (existingBook == null) return NotFound("Book not found");
+
+            existingBook.Title = book.Title;
+            existingBook.Author = book.Author;
+            existingBook.Publisher = book.Publisher;
+            existingBook.Isbn = book.Isbn;
+            existingBook.Classification = book.Classification;
+            existingBook.Category = book.Category;
+            existingBook.PageCount = book.PageCount;
+            existingBook.Price = book.Price;
+
+            await _bookstoreContext.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBook(int id)
+        {
+            var book = await _bookstoreContext.Books.FindAsync(id);
+            if (book == null) return NotFound("Book not found");
+
+            _bookstoreContext.Books.Remove(book);
+            await _bookstoreContext.SaveChangesAsync();
+            return NoContent();
+        }
+
         [HttpGet("GetBookCategories")]
-        public IActionResult GetBookCategories ()
+        public IActionResult GetBookCategories()
         {
             var bookCategories = _bookstoreContext.Books
                 .Select(b => b.Category)
@@ -72,5 +123,4 @@ namespace Books.Controllers
             return Ok(bookCategories);
         }
     }
-
 }

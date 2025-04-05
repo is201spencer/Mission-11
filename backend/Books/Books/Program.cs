@@ -25,7 +25,11 @@ if (app.Environment.IsDevelopment())
 }
 
 // What video is this from??
-app.UseCors(x => x.WithOrigins("http://localhost:3001"));
+app.UseCors(policy =>
+    policy.AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+);
 
 app.UseHttpsRedirection();
 

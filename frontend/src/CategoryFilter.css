@@ -1,46 +1,76 @@
-/* CategoryFilter.css */
-
-/* Container for the category filter (positioned on the right side) */
+/* Container for the category filter */
 .category-filter-container {
-    position: fixed; /* Fixed position to always stay on the right */
-    top: 20px; /* Adds some spacing from the top */
-    right: 20px; /* Positioned at the right side of the page */
-    background-color: #f8f9fa; /* Light background for contrast */
-    padding: 15px; /* Space inside the container */
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow around the filter */
-    border-radius: 8px; /* Rounded corners */
-    width: 250px; /* Set the width of the filter container */
-    height: 80vh; /* Set the height to 80% of the viewport height */
-    overflow-y: auto; /* Enables scrolling if content exceeds container height */
-    z-index: 1050; /* Ensure it appears above other content */
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background-color: rgba(255, 255, 255, 0.9); /* Soft translucent effect */
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    width: 260px;
+    height: 80vh;
+    overflow-y: auto;
+    z-index: 1050;
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* The list of categories */
+/* Category list layout */
 .category-list {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Adds space between checkboxes */
+    gap: 14px;
 }
 
-/* Individual category item */
+/* Each item */
 .category-item {
     display: flex;
-    align-items: center; /* Align checkbox and label on the same line */
+    align-items: center;
+    transition: background 0.2s ease;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.category-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 /* Checkbox styling */
 .category-checkbox {
-    margin-right: 10px; /* Space between checkbox and label */
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #888;
+    border-radius: 4px;
+    margin-right: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.category-checkbox:checked {
+    border-color: #2563eb;
+    background-color: #2563eb;
+}
+
+.category-checkbox:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    left: 2px;
+    top: -1px;
 }
 
 /* Label styling */
 .category-label {
-    font-size: 14px; /* Make the label font a little smaller */
-    color: #333; /* Dark color for the label */
+    font-size: 15px;
+    color: #333;
+    user-select: none;
 }
 
-/* Main content (the page data) */
+/* Main content spacing */
 .main-content {
-    padding: 20px; /* Optional: Adds padding to the main content */
-    margin-right: 280px; /* Add margin on the right to make room for the filter box */
+    padding: 30px;
+    margin-right: 300px;
 }

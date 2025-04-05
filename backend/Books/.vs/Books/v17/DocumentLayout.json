@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{74886EB7-7FCF-4911-B92A-6F52BDA336B4}|Books\\Books.csproj|c:\\users\\spenc\\onedrive\\desktop\\mission-11\\backend\\books\\books\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{74886EB7-7FCF-4911-B92A-6F52BDA336B4}|Books\\Books.csproj|solutionrelative:books\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74886EB7-7FCF-4911-B92A-6F52BDA336B4}|Books\\Books.csproj|c:\\users\\spenc\\onedrive\\desktop\\mission-11\\backend\\books\\books\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74886EB7-7FCF-4911-B92A-6F52BDA336B4}|Books\\Books.csproj|solutionrelative:books\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74886EB7-7FCF-4911-B92A-6F52BDA336B4}|Books\\Books.csproj|c:\\users\\spenc\\onedrive\\desktop\\mission-11\\backend\\books\\books\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{74886EB7-7FCF-4911-B92A-6F52BDA336B4}|Books\\Books.csproj|solutionrelative:books\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +22,38 @@
       "DocumentGroups": [
         {
           "DockedWidth": 33,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\spenc\\OneDrive\\Desktop\\Mission-11\\backend\\Books\\Books\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Books\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\spenc\\OneDrive\\Desktop\\Mission-11\\backend\\Books\\Books\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Books\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-01T02:54:04.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BookController.cs",
+              "DocumentMoniker": "C:\\Users\\spenc\\OneDrive\\Desktop\\Mission-11\\backend\\Books\\Books\\Controllers\\BookController.cs",
+              "RelativeDocumentMoniker": "Books\\Controllers\\BookController.cs",
+              "ToolTip": "C:\\Users\\spenc\\OneDrive\\Desktop\\Mission-11\\backend\\Books\\Books\\Controllers\\BookController.cs",
+              "RelativeToolTip": "Books\\Controllers\\BookController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAYwAYAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T02:33:19.443Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,14 +62,10 @@
               "RelativeDocumentMoniker": "Books\\Program.cs",
               "ToolTip": "C:\\Users\\spenc\\OneDrive\\Desktop\\Mission-11\\backend\\Books\\Books\\Program.cs",
               "RelativeToolTip": "Books\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-26T02:14:34.24Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:4:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             }
           ]
         }
